@@ -1,8 +1,9 @@
-import express, {Request, Response} from "express";
+import express from "express";
+import Router from './routes';
+
 
 const server = express();
 
-server.get("/", (req: Request, res: Response) => {
-  return res.json({teste: 'teste'});
-})
+server.use(Router);
+
 server.listen(3000); 
