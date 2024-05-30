@@ -6,10 +6,24 @@ router.get('/', (req: Request, res: Response) => {
     return res.json({teste: 'teste'});
   })
   
-router.get('/criancas/:id_pijama', (req: Request, res: Response) => {
-    console.log(req.params);
-    const id_pijama = req.params.id_pijama;
-    return res.json({id: id_pijama, nome: 'pijama com bolinhas azuis'})
+router.post('/criancas/pijama', (req: Request, res: Response) => {
+    const {nome, tamanho, cor, preco, quantidade_estoque} = req.query;   //aqui já está pegando de forma dinimanica
+    return res.json({nome, tamanho, cor, preco, quantidade_estoque});
   })
+
+// http://localhost:3000/criancas/350?tamanho=P&cor=blue
+
+router.put('/painel/pijama/:id', (req: Request, res: Response) => {
+  const {nome, tamanho, cor, preco, quantidade_estoque } = req.body;
+  const {id} = req.params;
+
+  return res.json({id, metodo: 'PUT', nome, tamanho, cor, preco, quantidade_estoque})
+});
+
+
+router.delete('/painel/pijama', (req: Request, res: Response) => {
+    const {id } = req.body;
+    return res.json({metodo: 'DELET', id })
+  });
 
 export default router;
