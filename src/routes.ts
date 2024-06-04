@@ -16,8 +16,14 @@ router.post('/criancas/pijama', (req: Request, res: Response) => {
 router.put('/painel/pijama/:id', (req: Request, res: Response) => {
   const {nome, tamanho, cor, preco, quantidade_estoque } = req.body;
   const {id} = req.params;
+  const { authorization } = req.headers;
 
-  return res.json({id, metodo: 'PUT', nome, tamanho, cor, preco, quantidade_estoque})
+  if(!authorization) {
+    res.status(400);
+    return res.json({error: "Invalid authorization"});
+  }
+
+  return res.json({id, metodo: 'PUT', nome, tamanho, cor, preco, quantidade_estoque, authorization})
 });
 
 
